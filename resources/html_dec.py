@@ -7,11 +7,11 @@ html_head = '''<!DOCTYPE html>
  <head>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
   <title>
-   {0}
+   %s
   </title>
 <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
 <body>
 
-  '''#.decode('utf-8')
-html_end = '</body></html>'#.decode('utf-8')
+  '''.decode('utf-8')
+html_end = '</body></html>'.decode('utf-8')

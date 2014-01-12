@@ -31,8 +31,7 @@ a:active,.osl a:active,.tbou a:active,#leftnav a:active{color:#dd4b39}
 a:link{color:#1e0fbe;cursor:pointer}
 a:visited{color:#61C}
 body,td,div,.p,a{font-family:arial,sans-serif;tap-highlight-color:rgba(255,255,255,0)}
-body{margin:0;padding:0}
-body{margin:0}
+body{margin:0;padding:12pt}
 cite,cite a:link{color:#006621;font-style:normal}
 div#tads .soc a:link{color:#666}
 div#tads a.am-dropdown-menu-item-text{color:#333}
