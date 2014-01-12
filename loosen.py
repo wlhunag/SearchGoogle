@@ -1,15 +1,10 @@
 #-*- coding: utf-8-*-
 __author__ = 'Aaron'
-'''
-目前一切還在構思中，不確定網路上有無現成的原始碼
-依照文件類型不同
-  1.可以切segment，如果文字完全符合就用綠色，75%符合就用藍色，50%符合就用咖啡色
-  2.照paragraph 分，也許可以標示出符合的部分
-'''
 
 import sys
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
+from PyQt4.QtWebKit import *
 import mechanize
 import urllib
 import os
@@ -32,6 +27,7 @@ class Dictionary(QMainWindow,Ui_MainWindow):
    {0}
   </title>
 <link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
 <body>
 
   '''
@@ -41,7 +37,9 @@ class Dictionary(QMainWindow,Ui_MainWindow):
 
         browser_content = mechanize.Browser()
         browser_content.set_handle_robots(False)
-        browser_content.addheaders = [('User-agent','dental')]
+        #還是會被Google 抓到耶，怎麼辦？
+        browser_content.addheaders = [('User-agent','Mozilla')]
+
         #如何設定傳入的關鍵字？
         # term = r'福音 教義'
         term = term.replace(" ","+")
@@ -73,6 +71,8 @@ class Dictionary(QMainWindow,Ui_MainWindow):
         src_location = os.path.abspath(os.path.dirname(__file__))
         baseUrl = QUrl.fromLocalFile(os.path.join(src_location,"resources/"))
     #     self.webView.load(QUrl.fromLocalFile(fn))
+        websettings = self.webView.settings()
+        websettings.setAttribute(QWebSettings.PluginsEnabled,True)
 
         #這樣按 backspace 好像沒辦法回上一頁？
         self.webView.setHtml(self.post_content,baseUrl )
@@ -81,7 +81,7 @@ class Dictionary(QMainWindow,Ui_MainWindow):
 
 
 app = QApplication(sys.argv)
-query = '"5 + (-sqrt(1-x^2-(y-abs(x))^2))*cos(30*((1-x^2-(y-abs(x))^2)))"'
+query = 'anki'
 #應該要兩個query ，一個加括號，一個不加
 dictionary = Dictionary(query)
 dictionary.show()
