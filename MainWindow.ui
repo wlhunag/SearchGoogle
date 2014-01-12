@@ -16,24 +16,58 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
+     <widget class="QLabel" name="label">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>235</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>符合程度</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QRadioButton" name="radioButton">
+      <property name="text">
+       <string>100%</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QRadioButton" name="radioButton_3">
+      <property name="text">
+       <string>75%</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QRadioButton" name="radioButton_2">
+      <property name="text">
+       <string>All</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
      <widget class="QTabWidget" name="tabWidget">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
+      <property name="font">
+       <font>
+        <underline>false</underline>
+        <kerning>false</kerning>
+       </font>
       </property>
       <property name="currentIndex">
        <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
-        <string>Tab 1</string>
+        <string>題目</string>
        </attribute>
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
-        <string>Tab 2</string>
+        <string>搜尋結果</string>
        </attribute>
       </widget>
      </widget>
@@ -54,7 +88,7 @@
      <string>檔案(&amp;F)</string>
     </property>
     <addaction name="action_N"/>
-    <addaction name="action"/>
+    <addaction name="action_X"/>
    </widget>
    <widget class="QMenu" name="menu_H">
     <property name="title">
@@ -104,6 +138,11 @@
   <action name="action_H">
    <property name="text">
     <string>使用說明(&amp;H)</string>
+   </property>
+  </action>
+  <action name="action_X">
+   <property name="text">
+    <string>離開(&amp;X)</string>
    </property>
   </action>
  </widget>

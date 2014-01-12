@@ -7,6 +7,7 @@ from PyQt4.QtGui import *
 from PyQt4.QtWebKit import *
 import mechanize
 import urllib
+import sqlite3
 import os
 import re
 from bs4 import BeautifulSoup
@@ -17,23 +18,6 @@ class Dictionary(QMainWindow,Ui_MainWindow):
     def __init__(self, term, parent = None):
         super(Dictionary, self).__init__( parent)
         self.setupUi(self)
-
-        #不知如何變成utf-8編碼的網頁，只好手動加入
-        html_head = '''<!DOCTYPE html>
-<html itemscope="" itemtype="http://schema.org/WebPage">
- <head>
-  <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-  <title>
-   {0}
-  </title>
-<link rel="stylesheet" type="text/css" href="style.css"/>
-</head>
-<body>
-
-  '''
-        html_end = '</body></html>'
-
-
 
         browser_content = mechanize.Browser()
         browser_content.set_handle_robots(False)
@@ -51,19 +35,17 @@ class Dictionary(QMainWindow,Ui_MainWindow):
         self.htmltext = re.subn(r"(?si)/url\?q=(.*?)&amp[^>]*", r'\1"', self.htmltext)
 
         soup = BeautifulSoup(self.htmltext[0])
-
-        self.post_content = html_head.format(term).decode('utf-8') + \
-                            unicode(soup.find(id="ires")) + html_end.decode('utf-8')
-
-        # with open("oo.html",'wb') as fh:
-        #     fh.write(self.post_content.encode('utf-8'))
-
-        #思考如何寫入資料庫，而不是用檔案？
-        #當然也要想如何從資料庫拿出資料？
-        # with open("test.html",'wb') as fh:
-        #     fh.write(self.content)
-
-        # self.search()
+        self.content = unicode(soup.find(id="ires"))
+        #將self.content 存起來
+        QA = (
+            (1,term, self.content),
+        )
+        con = sqlite3.connect('test.db')
+        with con:
+            cur = con.cursor()
+            cur.execute('DROP TABLE IF EXISTS Questions')
+            cur.execute('CREATE TABLE Questions(Id INT, Qa TEXT, Results TEXT)')
+            cur.executemany('INSERT INTO Questions VALUES(?,?,?)', QA)
 
 
     # def search(self):
@@ -74,14 +56,24 @@ class Dictionary(QMainWindow,Ui_MainWindow):
         websettings = self.webView.settings()
         websettings.setAttribute(QWebSettings.PluginsEnabled,True)
 
+        con = sqlite3.connect('test.db')
+        with con:
+            cur = con.cursor()
+            cur.execute("SELECT Results from Questions WHERE Qa=?", (term,))
+            con.commit()
+            row = cur.fetchone()
+        from resources.html_dec import html_end, html_head
+        # self.post_content = html_head.format(term).decode('utf-8') + \
+        #                   unicode(self.content) + html_end.decode('utf-8')
+        self.post_content = html_head.format(term) + row[0] + html_end
         #這樣按 backspace 好像沒辦法回上一頁？
-        self.webView.setHtml(self.post_content,baseUrl )
+        self.webView.setHtml(self.post_content, baseUrl)
 
 
 
 
 app = QApplication(sys.argv)
-query = 'anki'
+query = 'Queen'
 #應該要兩個query ，一個加括號，一個不加
 dictionary = Dictionary(query)
 dictionary.show()
