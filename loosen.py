@@ -11,6 +11,7 @@ import sys
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 import mechanize
+import urllib
 import os
 import re
 from bs4 import BeautifulSoup
@@ -18,8 +19,8 @@ from MainWindow import Ui_MainWindow
 
 class Dictionary(QMainWindow,Ui_MainWindow):
 
-    def __init__(self, parent = None):
-        super(Dictionary, self).__init__(parent)
+    def __init__(self, term, parent = None):
+        super(Dictionary, self).__init__( parent)
         self.setupUi(self)
 
         #不知如何變成utf-8編碼的網頁，只好手動加入
@@ -40,11 +41,12 @@ class Dictionary(QMainWindow,Ui_MainWindow):
 
         browser_content = mechanize.Browser()
         browser_content.set_handle_robots(False)
-        browser_content.addheaders = [('User-agent','chrome')]
+        browser_content.addheaders = [('User-agent','dental')]
         #如何設定傳入的關鍵字？
-        term = 'car good'
-        term = term.replace(" ","+") #不換成+會導致錯誤
-        query = 'http://www.google.com.tw/search?num=10&q=' + term
+        # term = r'福音 教義'
+        term = term.replace(" ","+")
+        # term = urllib.quote(term)
+        query = 'http://www.google.com/search?num=10&q=' + term
 
         self.htmltext = browser_content.open(query).read().decode('mbcs').replace("<b>","<b class=p>")
         #把奇怪的字串弄成可以連結的正常URL
@@ -71,14 +73,17 @@ class Dictionary(QMainWindow,Ui_MainWindow):
         src_location = os.path.abspath(os.path.dirname(__file__))
         baseUrl = QUrl.fromLocalFile(os.path.join(src_location,"resources/"))
     #     self.webView.load(QUrl.fromLocalFile(fn))
+
+        #這樣按 backspace 好像沒辦法回上一頁？
         self.webView.setHtml(self.post_content,baseUrl )
 
 
 
 
 app = QApplication(sys.argv)
-
-dictionary = Dictionary()
+query = '"5 + (-sqrt(1-x^2-(y-abs(x))^2))*cos(30*((1-x^2-(y-abs(x))^2)))"'
+#應該要兩個query ，一個加括號，一個不加
+dictionary = Dictionary(query)
 dictionary.show()
 
 app.exec_()
