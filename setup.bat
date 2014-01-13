@@ -5,8 +5,8 @@ setup_cxfreeze.py build
 
 @echo 接下來要壓縮亂數程式
 pause
-cd build\exe.win43-2.7
-"C:\Program Files\7-Zip\7z.exe" a -tzip ..\loosen.zip *
+
+"C:\Program Files\7-Zip\7z.exe" a -tzip build\loosen.zip build\exe.win32-2.7
 @echo 接下來要製作安裝檔案
 
 @echo

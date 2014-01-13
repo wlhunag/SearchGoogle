@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'MainWindow.ui'
 #
-# Created: Mon Jan 13 12:09:55 2014
+# Created: Mon Jan 13 14:49:25 2014
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -115,6 +115,9 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(10)
         self.treeWidget.setFont(font)
+        self.treeWidget.setEditTriggers(QtGui.QAbstractItemView.AnyKeyPressed|QtGui.QAbstractItemView.CurrentChanged|QtGui.QAbstractItemView.EditKeyPressed)
+        self.treeWidget.setAlternatingRowColors(True)
+        self.treeWidget.setWordWrap(True)
         self.treeWidget.setObjectName(_fromUtf8("treeWidget"))
         self.treeWidget.headerItem().setText(0, _fromUtf8("1"))
         self.treeWidget.header().setVisible(False)

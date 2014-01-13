@@ -2,14 +2,14 @@
 __author__ = 'Aaron'
 from cx_Freeze import setup, Executable
 import sys
-base = None
-#if sys.platform == "win32":
-#    base = "Win32GUI"
+#base = None
+if sys.platform == "win32":
+    base = "Win32GUI"
 
 #因為已經包含下列檔案了，所以就comment掉了
 includefiles= ['qtui', 'resources','imageformats']
 
-includes = ['sip', 'PyQt4.QtCore','PyQt4.QtGui','PyQt4.QtNetwork']
+includes = ['sip','PyQt4.QtNetwork']
 
 
 setup(
