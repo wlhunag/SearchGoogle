@@ -5,6 +5,7 @@ import sys
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from PyQt4.QtNetwork import *
+from manipulation import TextTwist
 from PyQt4.QtWebKit import *
 import mechanize
 import sqlite3
@@ -37,7 +38,7 @@ class Dictionary(QMainWindow,Ui_MainWindow):
         text = unicode(self.QuestionText.toPlainText()).encode('utf-8')
         print(text)
         for subject in text.lstrip('\n').rstrip('\n').replace("   ", " ").replace("  ", " ").split('\n'):
-            #TODO 若中間有空行，或是行頭有空白都要去掉
+            #TODO 若中間有空行，或是行頭有空白都要去掉，見manipulation.py
             self.search(subject)
 
     def clearDB(self):
