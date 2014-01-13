@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'MainWindow.ui'
 #
-# Created: Sun Jan 12 23:31:39 2014
+# Created: Mon Jan 13 12:09:55 2014
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,6 +27,9 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(932, 619)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8("../resources/rock.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.gridLayout = QtGui.QGridLayout(self.centralwidget)
@@ -48,6 +51,8 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
         MainWindow.setStatusBar(self.statusbar)
         self.dockWidget = QtGui.QDockWidget(MainWindow)
+        self.dockWidget.setAcceptDrops(True)
+        self.dockWidget.setWindowIcon(icon)
         self.dockWidget.setObjectName(_fromUtf8("dockWidget"))
         self.dockWidgetContents = QtGui.QWidget()
         self.dockWidgetContents.setObjectName(_fromUtf8("dockWidgetContents"))
@@ -66,22 +71,22 @@ class Ui_MainWindow(object):
         self.label_2 = QtGui.QLabel(self.tab)
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.gridLayout_3.addWidget(self.label_2, 0, 0, 1, 1)
-        self.pushButton_savefile = QtGui.QPushButton(self.tab)
-        self.pushButton_savefile.setObjectName(_fromUtf8("pushButton_savefile"))
-        self.gridLayout_3.addWidget(self.pushButton_savefile, 2, 0, 1, 2)
         self.QuestionText = QtGui.QPlainTextEdit(self.tab)
         font = QtGui.QFont()
         font.setPointSize(12)
         self.QuestionText.setFont(font)
         self.QuestionText.setObjectName(_fromUtf8("QuestionText"))
         self.gridLayout_3.addWidget(self.QuestionText, 1, 0, 1, 3)
-        self.pushButton_search = QtGui.QPushButton(self.tab)
-        self.pushButton_search.setObjectName(_fromUtf8("pushButton_search"))
-        self.gridLayout_3.addWidget(self.pushButton_search, 2, 2, 1, 1)
         self.examtitle = QtGui.QLineEdit(self.tab)
         self.examtitle.setDragEnabled(True)
         self.examtitle.setObjectName(_fromUtf8("examtitle"))
         self.gridLayout_3.addWidget(self.examtitle, 0, 1, 1, 2)
+        self.pushButton_savefile = QtGui.QPushButton(self.tab)
+        self.pushButton_savefile.setObjectName(_fromUtf8("pushButton_savefile"))
+        self.gridLayout_3.addWidget(self.pushButton_savefile, 2, 0, 1, 1)
+        self.pushButton_search = QtGui.QPushButton(self.tab)
+        self.pushButton_search.setObjectName(_fromUtf8("pushButton_search"))
+        self.gridLayout_3.addWidget(self.pushButton_search, 2, 1, 1, 2)
         self.tabWidget.addTab(self.tab, _fromUtf8(""))
         self.tab_2 = QtGui.QWidget()
         self.tab_2.setObjectName(_fromUtf8("tab_2"))
@@ -107,6 +112,9 @@ class Ui_MainWindow(object):
         self.pushButton_clear.setObjectName(_fromUtf8("pushButton_clear"))
         self.gridLayout_4.addWidget(self.pushButton_clear, 0, 1, 1, 1)
         self.treeWidget = QtGui.QTreeWidget(self.tab_2)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.treeWidget.setFont(font)
         self.treeWidget.setObjectName(_fromUtf8("treeWidget"))
         self.treeWidget.headerItem().setText(0, _fromUtf8("1"))
         self.treeWidget.header().setVisible(False)
@@ -133,16 +141,17 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menu_H.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "查考題", None))
         self.menu_F.setTitle(_translate("MainWindow", "檔案(&F)", None))
         self.menu_H.setTitle(_translate("MainWindow", "說明(&H)", None))
+        self.dockWidget.setWindowTitle(_translate("MainWindow", "Loosen 搜尋", None))
         self.label_2.setText(_translate("MainWindow", "考試名稱：", None))
         self.pushButton_savefile.setText(_translate("MainWindow", "儲存題目", None))
-        self.pushButton_search.setText(_translate("MainWindow", "開始搜尋", None))
+        self.pushButton_search.setText(_translate("MainWindow", "開始搜尋(&G)", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "題目", None))
         self.label.setText(_translate("MainWindow", "符合程度", None))
         self.radioButton100.setText(_translate("MainWindow", "100%", None))

@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>查考題</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../resources/rock.png</normaloff>../resources/rock.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="1" column="0" rowspan="2">
@@ -54,6 +58,16 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QDockWidget" name="dockWidget">
+   <property name="acceptDrops">
+    <bool>true</bool>
+   </property>
+   <property name="windowIcon">
+    <iconset>
+     <normaloff>../resources/rock.png</normaloff>../resources/rock.png</iconset>
+   </property>
+   <property name="windowTitle">
+    <string>Loosen 搜尋</string>
+   </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
@@ -68,7 +82,7 @@
         </font>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -82,13 +96,6 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="0" colspan="2">
-          <widget class="QPushButton" name="pushButton_savefile">
-           <property name="text">
-            <string>儲存題目</string>
-           </property>
-          </widget>
-         </item>
          <item row="1" column="0" colspan="3">
           <widget class="QPlainTextEdit" name="QuestionText">
            <property name="font">
@@ -98,17 +105,24 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="2">
-          <widget class="QPushButton" name="pushButton_search">
-           <property name="text">
-            <string>開始搜尋</string>
-           </property>
-          </widget>
-         </item>
          <item row="0" column="1" colspan="2">
           <widget class="QLineEdit" name="examtitle">
            <property name="dragEnabled">
             <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QPushButton" name="pushButton_savefile">
+           <property name="text">
+            <string>儲存題目</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1" colspan="2">
+          <widget class="QPushButton" name="pushButton_search">
+           <property name="text">
+            <string>開始搜尋(&amp;G)</string>
            </property>
           </widget>
          </item>
@@ -169,6 +183,11 @@
          </item>
          <item row="1" column="0" colspan="2">
           <widget class="QTreeWidget" name="treeWidget">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
            <attribute name="headerVisible">
             <bool>false</bool>
            </attribute>
