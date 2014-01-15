@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'MainWindow.ui'
 #
-# Created: Mon Jan 13 14:49:25 2014
+# Created: Tue Jan 14 23:45:59 2014
 #      by: PyQt4 UI code generator 4.9.6
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(932, 619)
+        MainWindow.resize(961, 703)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8("../resources/rock.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
@@ -34,13 +34,21 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.gridLayout = QtGui.QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
-        self.webView_2 = QtWebKit.QWebView(self.centralwidget)
+        self.tabWidget_2 = QtGui.QTabWidget(self.centralwidget)
+        self.tabWidget_2.setObjectName(_fromUtf8("tabWidget_2"))
+        self.tab_3 = QtGui.QWidget()
+        self.tab_3.setObjectName(_fromUtf8("tab_3"))
+        self.gridLayout_2 = QtGui.QGridLayout(self.tab_3)
+        self.gridLayout_2.setObjectName(_fromUtf8("gridLayout_2"))
+        self.webView_2 = QtWebKit.QWebView(self.tab_3)
         self.webView_2.setUrl(QtCore.QUrl(_fromUtf8("about:blank")))
         self.webView_2.setObjectName(_fromUtf8("webView_2"))
-        self.gridLayout.addWidget(self.webView_2, 1, 0, 2, 1)
+        self.gridLayout_2.addWidget(self.webView_2, 0, 0, 1, 1)
+        self.tabWidget_2.addTab(self.tab_3, _fromUtf8(""))
+        self.gridLayout.addWidget(self.tabWidget_2, 1, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 932, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 961, 21))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         self.menu_F = QtGui.QMenu(self.menubar)
         self.menu_F.setObjectName(_fromUtf8("menu_F"))
@@ -144,11 +152,13 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menu_H.menuAction())
 
         self.retranslateUi(MainWindow)
+        self.tabWidget_2.setCurrentIndex(0)
         self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "查考題", None))
+        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab_3), _translate("MainWindow", "Tab 1", None))
         self.menu_F.setTitle(_translate("MainWindow", "檔案(&F)", None))
         self.menu_H.setTitle(_translate("MainWindow", "說明(&H)", None))
         self.dockWidget.setWindowTitle(_translate("MainWindow", "Loosen 搜尋", None))

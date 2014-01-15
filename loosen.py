@@ -21,6 +21,12 @@ class Dictionary(QMainWindow,Ui_MainWindow):
         self.setupUi(self)
         websettings = self.webView_2.settings()
         websettings.setAttribute(QWebSettings.PluginsEnabled, True)
+        websettings.setAttribute(QWebSettings.WebGLEnabled, True)
+        websettings.setAttribute(QWebSettings.AutoLoadImages, True)
+        websettings.setAttribute(QWebSettings.LocalStorageEnabled, True)
+        websettings.setAttribute(QWebSettings.LocalContentCanAccessFileUrls, True)
+        websettings.setAttribute(QWebSettings.LocalContentCanAccessRemoteUrls, True)
+        websettings.setAttribute(QWebSettings.DeveloperExtrasEnabled, True)
         self.browser_content = mechanize.Browser()
         self.browser_content.set_handle_robots(False)
         self.browser_content.addheaders = [('User-agent', 'Mozilla')]
@@ -87,9 +93,9 @@ class Dictionary(QMainWindow,Ui_MainWindow):
                 self.treeWidget.addTopLevelItem(QTreeWidgetItem(row))
 
     def showhtml(self):
-
         for item in self.treeWidget.selectedItems():
             term = unicode(item.text(0))
+        self.tabWidget_2.setTabText(0, term)
         print repr(term)
         con = sqlite3.connect('storage.db')
         with con:
