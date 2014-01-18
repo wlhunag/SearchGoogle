@@ -19,6 +19,14 @@ class Dictionary(QMainWindow,Ui_MainWindow):
     def __init__(self, parent=None):
         super(Dictionary, self).__init__(parent)
         self.setupUi(self)
+        self.browser_content = mechanize.Browser()
+        self.browser_content.set_handle_robots(False)
+        self.browser_content.addheaders = [('User-agent', 'Mozilla')]
+        self.webset()
+        self.updateresults()
+        self.createconnection()
+
+    def webset(self):
         websettings = self.webView_2.settings()
         websettings.setAttribute(QWebSettings.PluginsEnabled, True)
         websettings.setAttribute(QWebSettings.WebGLEnabled, True)
@@ -27,11 +35,6 @@ class Dictionary(QMainWindow,Ui_MainWindow):
         websettings.setAttribute(QWebSettings.LocalContentCanAccessFileUrls, True)
         websettings.setAttribute(QWebSettings.LocalContentCanAccessRemoteUrls, True)
         websettings.setAttribute(QWebSettings.DeveloperExtrasEnabled, True)
-        self.browser_content = mechanize.Browser()
-        self.browser_content.set_handle_robots(False)
-        self.browser_content.addheaders = [('User-agent', 'Mozilla')]
-        self.updateresults()
-        self.createconnection()
 
     def createconnection(self):
         self.pushButton_search.clicked.connect(lambda: self.analyse())
@@ -40,11 +43,9 @@ class Dictionary(QMainWindow,Ui_MainWindow):
         self.pushButton_clear.clicked.connect(lambda: self.clearDB())
 
     def analyse(self):
-        #以後還要改良這邊的演算法，現在是毫無演算法可言啦~
         text = unicode(self.QuestionText.toPlainText()).encode('utf-8')
         print(text)
-        for subject in text.lstrip('\n').rstrip('\n').replace("   ", " ").replace("  ", " ").split('\n'):
-            #TODO 若中間有空行，或是行頭有空白都要去掉，見manipulation.py
+        for subject in re.sub('[ ]+',' ',text.strip().replace("   ", " ").replace("  ", " ")).split('\n'):
             self.search(subject)
 
     def clearDB(self):
@@ -52,13 +53,14 @@ class Dictionary(QMainWindow,Ui_MainWindow):
         self.updateresults()
 
     def search(self, term):
-
+        #TODO以後還要改良這邊的演算法，現在是毫無演算法可言啦~
         row = term.replace(" ", "+")
-        #TODO 送 Google 查詢前，需要先處理，應該要用一個Class 來處理
+        #TODO 送 Google 查詢前，需要先處理，應該要用一個Class 來處理，見manipulation.py
         query = 'http://www.google.com.tw/search?num=10&q=' + row
         self.htmltext = self.browser_content.open(query).read()
         #不知為何這邊編碼一定要mbcs，不然就會變亂碼？？        #原本以為已經弄懂編碼了，結果又混亂了
-        self.htmltext = re.subn(r"(?si)/url\?q=(.*?)&amp[^>]*", r'\1"', self.htmltext.decode('mbcs').replace("<b>","<b class=p>"))
+        self.htmltext = re.subn(r"(?si)/url\?q=(.*?)&amp[^>]*", r'\1"', self.htmltext.decode('mbcs').replace("<b>","<b class=p>").replace("%3F", "?").replace("%3D", "=").replace("%25", "%"))#.replace('href="/', 'href="http://www.google.com.tw/'))
+        #TODO 最後兩個Replace 是應付php 網站的，和Google 圖片的但似乎也不是很好的解法，很多可能性要考慮，是否要一個一個取代？？
 
         soup = BeautifulSoup(self.htmltext[0])
         for div in soup.findAll('div', 'am-dwn-arw-container'):
